@@ -8,6 +8,8 @@ const path = require("path");
 
 const { connectMongoDB } = require("./connect");
 
+const staticRoute = require("./router/staticRouter");
+
 const urlRoute = require("./router/url");
 const URL = require("./model/url_model");
 const PORT = 8000;
@@ -20,6 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/url", urlRoute);
+
+app.use("/", staticRoute);
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./view"));
