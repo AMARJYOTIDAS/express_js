@@ -42,6 +42,7 @@ async function handleGetAnalytics(req, res) {
     analytics: result.visithistory,
   });
 }
+
 // async function handleDeleteTheShortId(req, res) {
 //   const shortId = req.params.shortId
 //   const deleteId = await URL.findOneAndDelete(
