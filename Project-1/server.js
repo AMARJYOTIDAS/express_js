@@ -14,7 +14,7 @@ connectDb("mongodb://127.0.0.1:27017/express-db")
   .catch((error) => console.log("error", error));
 
 app.use(express.urlencoded({ extended: true }));
-app.use(logReqRes(log.txt));
+app.use(logReqRes("log.txt"));
 
 app.use("/user", userRoute);
 

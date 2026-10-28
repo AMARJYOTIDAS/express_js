@@ -11,17 +11,37 @@ const handleGetUserById = async (req, res) => {
   return res.json(user);
 };
 
-const handleUpdateUserById = async (req, res) => {
-  await User.findByIdAndUpdate(req.params.id, { lastname: changed });
-  return res.json({ msg: success });
-};
+async function handleUpdateUserById(req, res) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+      returnDocument: "after",
+      runValidators: true,
+    });
 
-async function handleDeleteUserById() {
+    if (!updatedUser) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "User updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error updating user",
+      error: error.message,
+    });
+  }
+}
+
+async function handleDeleteUserById(req, res) {
   await User.findByIdAndDelete(req.params.id);
   return res.json({ status: "success" });
 }
 
-async function handleCreateNewUser() {
+async function handleCreateNewUser(req, res) {
   const body = req.body;
   if (
     !body ||
@@ -46,4 +66,5 @@ module.exports = {
   handleGetUserById,
   handleUpdateUserById,
   handleDeleteUserById,
+  handleCreateNewUser,
 };

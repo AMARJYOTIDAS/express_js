@@ -9,7 +9,9 @@ const {
 } = require("../controllers/user");
 const routes = express.Router();
 
-routes.route.get(handleAlluser).post(handleCreateNewUser);
+routes.route("/").get(handleAlluser).post(handleCreateNewUser);
+// console.log("Handler:", handleCreateNewUser);
+// console.log("Type:", typeof handleCreateNewUser);
 
 routes
   .route("/:id")
