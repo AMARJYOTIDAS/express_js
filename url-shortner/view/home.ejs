@@ -7,5 +7,43 @@
   </head>
   <body>
     <h1>hello from server</h1>
+    <% if (locals.id) { %>
+     <p>url generated http://localhost/url</p><%= id %>
+    <% } %>
+    <div class="">
+      <form method="post" action="/url">
+        <label for="url">enter your original url</label>
+        <input
+          id="url"
+          type="text"
+          placeholder="http://google.com"
+          name="url"
+        />
+
+        <button type="submit">Generate</button>
+      </form>
+    </div>
+    <div class="">
+     <% if (locals.urls) { %>
+       <table>
+        <thead>
+          <th>s.no</th>
+          <th>shortID</th>
+          <th>redirect</th>
+          <th>clicks</th>
+        </thead>
+        <tbody>
+      <% urls.forEach((url, index) => { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= url.shortId %></td>
+          <td><%= url.redirectURL %></td>
+          <td><%= url.visithistory.length %></td>
+        </tr>
+      <% }) %>
+        </tbody>
+      </table>
+     <% } %>
+    </div>
   </body>
 </html>

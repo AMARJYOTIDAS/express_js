@@ -28,12 +28,12 @@ app.use("/", staticRoute);
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./view"));
 
-app.get("/test", async (req, res) => {
-  const allURL = await URL.find();
-  return res.render("home", {
-    urls: allURL,
-  });
-});
+// app.get("/test", async (req, res) => {
+//   const allURL = await URL.find();
+//   return res.render("home", {
+//     urls: allURL,
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log(`server listen on port ${PORT}`);
