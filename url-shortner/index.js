@@ -4,7 +4,11 @@ const app = express();
 
 const ejs = require("ejs");
 
+const cookieParser = require("cookie-parser");
+
 const path = require("path");
+
+const { handleRestrictToLogeedUserOnly } = require("./middleware/auth");
 
 const { connectMongoDB } = require("./connect");
 
@@ -22,8 +26,9 @@ connectMongoDB("mongodb://127.0.0.1:27017/short_url_1")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-app.use("/url", urlRoute);
+app.use("/url", handleRestrictToLogeedUserOnly, urlRoute);
 
 app.use("/", staticRoute);
 
