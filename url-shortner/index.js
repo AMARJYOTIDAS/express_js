@@ -8,7 +8,10 @@ const cookieParser = require("cookie-parser");
 
 const path = require("path");
 
-const { handleRestrictToLogeedUserOnly } = require("./middleware/auth");
+const {
+  handleRestrictToLogeedUserOnly,
+  checkAuth,
+} = require("./middleware/auth");
 
 const { connectMongoDB } = require("./connect");
 
@@ -29,9 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use("/url", handleRestrictToLogeedUserOnly, urlRoute);
-
-app.use("/", staticRoute);
-
+app.use("/", checkAuth, staticRoute);
 app.use("/user", userRoute);
 
 app.set("view engine", "ejs");
