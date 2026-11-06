@@ -18,14 +18,17 @@ async function handleUserSignUp(req, res) {
 async function handleUserLogin(req, res) {
   const { email, password } = req.body;
   const user = User.findOne({ email, password });
-  if (!user)
+  console.log("user", user);
+  if (!user) {
     return res.render("login", {
       error: "invalid username or password",
     });
+  }
 
-  const sessionId = uuidv4();
-  setUser(sessionId, user);
-  res.cookie("uid", sessionId);
+  // const sessionId = uuidv4();
+
+  const token = setUser(user);
+  res.cookie("uid", token);
   return res.redirect("/");
 }
 module.exports = { handleUserSignUp, handleUserLogin };
